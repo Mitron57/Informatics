@@ -65,7 +65,7 @@ fn read_string() -> Result<String> {
             return Ok(buffer.trim().to_string());
         }
         buffer.clear();
-        println!("Вы ввели не 4-х символьное слово, ведите слово заново:")
+        println!("Вы ввели не 4-х символьное слово, введите слово заново:")
     }
     Err(Error::from(ErrorKind::UnexpectedEof))
 }
