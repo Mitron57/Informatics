@@ -84,12 +84,8 @@ fn read_letter() -> Result<char> {
     let mut buffer = String::new();
     while read_core(&mut buffer).is_ok() {
         let trimmed = buffer.trim();
-        if trimmed.len() == 1
-            && trimmed
-                .as_bytes()
-                .iter()
-                .all(|&e| e.is_ascii_lowercase() || e.is_ascii_uppercase())
-        {
+        let letter = trimmed.as_bytes()[0];
+        if trimmed.len() == 1 && (letter.is_ascii_lowercase() || letter.is_ascii_uppercase()) {
             return Ok(buffer.trim().as_bytes()[0] as char);
         }
         buffer.clear();
@@ -142,7 +138,9 @@ fn main() {
     let mut result = Vec::new();
     for line in matrix.iter() {
         for word in line.iter() {
-            if !word.contains(letter) {
+            if !word.contains(letter.to_ascii_lowercase())
+                && !word.contains(letter.to_ascii_uppercase())
+            {
                 result.push(word);
             }
         }
